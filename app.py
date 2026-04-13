@@ -1,4 +1,5 @@
 import streamlit as st
+
 class LegalReadinessQuiz:
     """
     This class contains the logic and data for the full Legal Readiness Questionnaire.
@@ -7,28 +8,22 @@ class LegalReadinessQuiz:
     """
     def __init__(self):
         # This dictionary holds the entire questionnaire logic.
-        # It is organized into 9 distinct sections.
         self.nodes = {
-                        "start": {
+            "start": {
                 "type": "section_intro",
                 "text": "Welcome to the Warfighter Legal Readiness Program. We are here to help you understand your legal needs and connect you with a lawyer who can help. This process is simple and fast, and will give you peace of mind as you prepare for deployment. The questions and information provided have been drafted by Legal Assistance experts with years of experience helping Warfighters prepare for deployments.\n\nAnswering the questions below can help us understand what you are going through and whether you need legal assistance. These answers are not a substitute for legal advice, but they will give you an idea if you should contact an attorney. When you complete all the questions, the program will generate a checklist and instructions based on your responses. You can take that checklist to your local legal assistance office and the lawyers there will help you put together what you need, at no cost to you.\n\nPlease read each question carefully.\n\nLet’s get started……..",
                 "next": "wills_intro"
             },
-
-
             # =================================================================
             # SECTION 1: WILLS AND ESTATE PLANNING
             # =================================================================
-            
-                                        "wills_intro": {
-            "type": "section_intro",
-            "title": "Section 1: Wills and Estate Planning",
-            "text": "Estate planning is the process of deciding exactly what you want to happen to your money, stuff, and even your children if you pass away or become unable to make decisions for yourself. It's not just for the wealthy; everyone has an \"estate.\" Estate planning answers these big questions: Who gets my stuff? (Your house, car, money, sentimental items). Who will take care of my kids? (Designating a guardian). Who will make medical decisions for me if I can't? (Healthcare power of attorney). The goal of estate planning is to make things as easy as possible for your Family during a difficult time, and an important part of an estate plan can be a will.",
-            "popup": {"A Will": "A Will is the document that decides what you want to happen to your stuff. Think of it as the master instruction sheet for what to do with your things after you pass away. A Will does three main things: 1. It lists who gets your stuff. 2. It names a trusted person (sometime called your \"Executor\" or your “Personal Representative”) to be in charge of making sure your will is followed. 3. It names a Guardian if you have minor children - this is where you legally state who you want to raise them. Remember, no one can force you to get a will, and you are not required to have one before you deploy. These questions will tell you when it’s a really really good idea to make a will, but the choice is always yours. Later in the program we will talk about how to make sure all your benefits and accounts can be directed to where you want them to go with or without a will."},
-            "next": "q_married"
-        },
-
-
+            "wills_intro": {
+                "type": "section_intro",
+                "title": "Section 1: Wills and Estate Planning",
+                "text": "Estate planning is the process of deciding exactly what you want to happen to your money, stuff, and even your children if you pass away or become unable to make decisions for yourself. It's not just for the wealthy; everyone has an \"estate.\" Estate planning answers these big questions: Who gets my stuff? (Your house, car, money, sentimental items). Who will take care of my kids? (Designating a guardian). Who will make medical decisions for me if I can't? (Healthcare power of attorney). The goal of estate planning is to make things as easy as possible for your Family during a difficult time, and an important part of an estate plan can be a will.",
+                "popup": {"A Will": "A Will is the document that decides what you want to happen to your stuff. Think of it as the master instruction sheet for what to do with your things after you pass away. A Will does three main things: 1. It lists who gets your stuff. 2. It names a trusted person (sometime called your \"Executor\" or your “Personal Representative”) to be in charge of making sure your will is followed. 3. It names a Guardian if you have minor children - this is where you legally state who you want to raise them. Remember, no one can force you to get a will, and you are not required to have one before you deploy. These questions will tell you when it’s a really really good idea to make a will, but the choice is always yours. Later in the program we will talk about how to make sure all your benefits and accounts can be directed to where you want them to go with or without a will."},
+                "next": "q_married"
+            },
             "q_married": {
                 "type": "question",
                 "text": "Are you married?",
@@ -36,19 +31,18 @@ class LegalReadinessQuiz:
                 "no": "q_single_have_children"
             },
             # --- Married Path ---
-                    "q_separated": {
-            "type": "question",
-            "text": "Are you currently separated, going through legal separation, or divorce?",
-            "yes": "out_wills_separated",
-            "no": "q_married_have_children"
-        },
-        "out_wills_separated": {
-            "type": "outcome",
-            "level": "Red",
-            "text": "You should see an attorney to help you get a will. If you don’t get a will, there is a chance your soon-to-be-ex-spouse will inherit your stuff or be able to make important decisions on your behalf.",
-            "next": "q_married_have_children" # <--- THE FIX. This now correctly asks about children.
-        },
-
+            "q_separated": {
+                "type": "question",
+                "text": "Are you currently separated, going through legal separation, or divorce?",
+                "yes": "out_wills_separated",
+                "no": "q_married_have_children"
+            },
+            "out_wills_separated": {
+                "type": "outcome",
+                "level": "Red",
+                "text": "You should see an attorney to help you get a will. If you don’t get a will, there is a chance your soon-to-be-ex-spouse will inherit your stuff or be able to make important decisions on your behalf.",
+                "next": "q_married_have_children"
+            },
             "q_married_have_children": {
                 "type": "question",
                 "text": "Do you have children?",
@@ -59,7 +53,7 @@ class LegalReadinessQuiz:
                 "type": "outcome",
                 "level": "Yellow",
                 "text": "If you die without a will, your stuff will go to your spouse. If you don’t want that to happen, you should consider seeing an attorney.",
-                "next": "asset_intro" # Jumps to the next section
+                "next": "asset_intro"
             },
             "q_custody_dispute_married": {
                 "type": "question",
@@ -221,20 +215,16 @@ class LegalReadinessQuiz:
                 "text": "If you die without a will, your property will go to the state. You should see an attorney to draft a will to ensure your property goes where you want it to.",
                 "next": "asset_intro"
             },
-                "asset_intro": {
-            "type": "section_intro",
-            "title": "Section 2: Asset Check",
-            "text": "Congrats – you just made it through one of the most important and difficult topics to think about before a deployment. Putting in the work now will give you and your family peace of mind. Do you also know that if you had paid a private attorney for this service it probably would have cost you thousands of dollars? Free legal advice is a benefit of military service that you have earned – good job taking advantage of this valuable benefit.",
-            "next": "q_own_land"
-        },
 
-
-            
             # =================================================================
             # SECTION 2: ASSET CHECK
             # =================================================================
-            
-                        
+            "asset_intro": {
+                "type": "section_intro",
+                "title": "Section 2: Asset Check",
+                "text": "Congrats – you just made it through one of the most important and difficult topics to think about before a deployment. Putting in the work now will give you and your family peace of mind. Do you also know that if you had paid a private attorney for this service it probably would have cost you thousands of dollars? Free legal advice is a benefit of military service that you have earned – good job taking advantage of this valuable benefit.",
+                "next": "q_own_land"
+            },
             "q_own_land": {
                 "type": "question",
                 "text": "Do you own a house or land?",
@@ -245,7 +235,7 @@ class LegalReadinessQuiz:
                 "type": "outcome",
                 "level": "Red",
                 "text": "You should see an attorney to complete estate planning documentation.",
-                "next": "q_specific_gifts" # This was a bug in the flowchart, should go to next question not end
+                "next": "q_specific_gifts"
             },
             "q_specific_gifts": {
                 "type": "question",
@@ -257,7 +247,7 @@ class LegalReadinessQuiz:
                 "type": "outcome",
                 "level": "Red",
                 "text": "You should see an attorney to complete estate planning documentation.",
-                "next": "q_over_1m" # This was a bug in the flowchart, should go to next question not end
+                "next": "q_over_1m"
             },
             "q_over_1m": {
                 "type": "question",
@@ -299,21 +289,19 @@ class LegalReadinessQuiz:
                 "type": "outcome",
                 "level": "Green",
                 "text": "You should update your 'Payable on Death' beneficiaries with your bank.",
-                "next": "beneficiary_intro" # Correctly points to the next section
+                "next": "beneficiary_intro"
             },
 
             # =================================================================
             # SECTION 3: BENEFICIARY DESIGNATIONS
             # =================================================================
-
-                                "beneficiary_intro": {
-            "type": "section_intro",
-            "title": "Section 3: Beneficiary Designations",
-            "text": "That's excellent work. You've taken a crucial step by assessing what you have. Now that you have a clear picture of your assets, the next logical step is to ensure those assets—and your military benefits—are directed to the right people. Let's look at your beneficiary designations.",
-            "popup": {"Beneficiary": "A beneficiary is a person or entity you name in a will, life insurance policy, or other financial account who will receive money or property from you when you pass away."},
-            "next": "q_sgli_updated"
-        },
-
+            "beneficiary_intro": {
+                "type": "section_intro",
+                "title": "Section 3: Beneficiary Designations",
+                "text": "That's excellent work. You've taken a crucial step by assessing what you have. Now that you have a clear picture of your assets, the next logical step is to ensure those assets—and your military benefits—are directed to the right people. Let's look at your beneficiary designations.",
+                "popup": {"Beneficiary": "A beneficiary is a person or entity you name in a will, life insurance policy, or other financial account who will receive money or property from you when you pass away."},
+                "next": "q_sgli_updated"
+            },
             "q_sgli_updated": {
                 "type": "question",
                 "text": "Have you checked your SGLI (Servicemembers' Group Life Insurance) beneficiary designations and are they up to date?",
@@ -324,13 +312,13 @@ class LegalReadinessQuiz:
                 "type": "outcome",
                 "level": "Red",
                 "text": "You should update your SGLI immediately.",
-                "next": "q_sgli_divorced" # Still need to ask the divorce question
+                "next": "q_sgli_divorced"
             },
             "q_sgli_divorced": {
                 "type": "question",
                 "text": "Are you divorced? If so, have you taken your former spouse off your SGLI?",
-                "yes": "out_bene_remove_ex_spouse", # This implies they are divorced but haven't removed the ex.
-                "no": "q_dd93_updated", # This implies they are either not divorced, or have already handled it.
+                "yes": "out_bene_remove_ex_spouse",
+                "no": "q_dd93_updated"
             },
             "out_bene_remove_ex_spouse": {
                  "type": "outcome",
@@ -351,67 +339,58 @@ class LegalReadinessQuiz:
                 "text": "You should update your Record of Emergency Data (DD Form 93) immediately.",
                 "next": "q_tsp_updated"
             },
-
             "q_tsp_updated": {
                 "type": "question",
                 "text": "Have you checked your TSP and other retirement account beneficiaries and are they up to date?",
-                "yes": "reemployment_intro", # Points to the next section
+                "yes": "reemployment_intro",
                 "no": "out_bene_update_retirement"
             },
             "out_bene_update_retirement": {
                 "type": "outcome",
                 "level": "Yellow",
                 "text": "You may want to consider checking your TSP and other retirement accounts to make sure your beneficiaries are up to date.",
-                "next": "reemployment_intro" # Points to the next section
+                "next": "reemployment_intro"
             },
-
-            
-
 
             # =================================================================
             # SECTION 4: REEMPLOYMENT RIGHTS (USERRA)
             # =================================================================
-
-                                "reemployment_intro": {
-            "type": "section_intro",
-            "title": "Section 4: Reemployment Rights (USERRA)",
-            "text": "It’s important to understand that a will doesn’t cover everything you own. There are a lot of valuable assets that are controlled very simply – by just writing down who you want to receive the benefit in a beneficiary designation. Most of these types of assets are in monetary accounts like bank accounts, retirement accounts like IRAs or 401ks, insurance policies, or investment accounts. Almost every institution that offers these type accounts give you an easy way to change these designations – they may be called a “pay on death” (POD) designation, or a beneficiary designation, or a successor designation. Working through this section helped you identify and take care of many of these important accounts.",
-            "popup": {"USERRA": "The Uniformed Services Employment and Reemployment Rights Act (USERRA) is a federal law that protects the civilian job rights and benefits for veterans and members of reserve components. It requires employers to allow you to return to your job after military service."},
-            "next": "q_has_civilian_job"
-        },
-
+            "reemployment_intro": {
+                "type": "section_intro",
+                "title": "Section 4: Reemployment Rights (USERRA)",
+                "text": "It’s important to understand that a will doesn’t cover everything you own. There are a lot of valuable assets that are controlled very simply – by just writing down who you want to receive the benefit in a beneficiary designation. Most of these types of assets are in monetary accounts like bank accounts, retirement accounts like IRAs or 401ks, insurance policies, or investment accounts. Almost every institution that offers these type accounts give you an easy way to change these designations – they may be called a “pay on death” (POD) designation, or a beneficiary designation, or a successor designation. Working through this section helped you identify and take care of many of these important accounts.",
+                "popup": {"USERRA": "The Uniformed Services Employment and Reemployment Rights Act (USERRA) is a federal law that protects the civilian job rights and benefits for veterans and members of reserve components. It requires employers to allow you to return to your job after military service."},
+                "next": "q_has_civilian_job"
+            },
             "q_has_civilian_job": {
                 "type": "question",
                 "text": "Do you have a civilian job that you will be leaving for your deployment?",
                 "yes": "q_notified_employer",
-                "no": "scra_intro" # If no job, skip to the next section
+                "no": "scra_intro"
             },
             "q_notified_employer": {
                 "type": "question",
                 "text": "Have you notified your employer of your upcoming deployment?",
-                "yes": "scra_intro", # If yes, continue to the next section
+                "yes": "scra_intro",
                 "no": "out_reemployment_notify"
             },
             "out_reemployment_notify": {
                 "type": "outcome",
                 "level": "Yellow",
                 "text": "You should notify your employer of your military service to protect your re-employment rights under USERRA.",
-                "next": "scra_intro" # Continue to the next section
+                "next": "scra_intro"
             },
-
 
             # =================================================================
             # SECTION 5: CONSUMER PROTECTION (SCRA)
             # =================================================================
-
-                                "scra_intro": {
-            "type": "section_intro",
-            "title": "Section 5: Consumer Protection and the Servicemember's Civil Relief Act (SCRA)",
-            "text": "That's great. Taking a moment to think about your civilian employment is a crucial step. Federal law gives you powerful rights to get your job back, and the step you just took—or confirmed you already took—is key to ensuring you're protected.\n\nNow, let's move on to another powerful set of federal protections: your rights as a consumer under the SCRA.",
-            "popup": {"SCRA": "The Servicemembers Civil Relief Act (SCRA) is a federal law that provides a range of legal protections to active-duty servicemembers. It can help with things like breaking a lease, reducing interest rates, and postponing court actions."},
-            "next": "q_landlord_tenant"
-        },
-
+            "scra_intro": {
+                "type": "section_intro",
+                "title": "Section 5: Consumer Protection and the Servicemember's Civil Relief Act (SCRA)",
+                "text": "That's great. Taking a moment to think about your civilian employment is a crucial step. Federal law gives you powerful rights to get your job back, and the step you just took—or confirmed you already took—is key to ensuring you're protected.\n\nNow, let's move on to another powerful set of federal protections: your rights as a consumer under the SCRA.",
+                "popup": {"SCRA": "The Servicemembers Civil Relief Act (SCRA) is a federal law that provides a range of legal protections to active-duty servicemembers. It can help with things like breaking a lease, reducing interest rates, and postponing court actions."},
+                "next": "q_landlord_tenant"
+            },
             "q_landlord_tenant": {
                 "type": "question",
                 "text": "Do you have any landlord/tenant issues, or are you currently in a lease you may need to break?",
@@ -440,47 +419,41 @@ class LegalReadinessQuiz:
                 "type": "question",
                 "text": "Do you have any upcoming court dates or other civil legal matters pending?",
                 "yes": "out_consumer_court",
-                "no": "admin_intro" # Points to the next section
+                "no": "admin_intro"
             },
             "out_consumer_court": {
                 "type": "outcome",
                 "level": "Red",
                 "text": "You should see an attorney immediately to discuss how to handle your pending legal matters while you are deployed.",
-                "next": "admin_intro" # Points to the next section
+                "next": "admin_intro"
             },
-
 
             # =================================================================
             # SECTION 6: MILITARY ADMINISTRATIVE MATTERS
             # =================================================================
-
-                                        "admin_intro": {
-            "type": "section_intro",
-            "title": "Section 6: Military Administrative Matters",
-            "text": "Excellent work. By navigating these questions, you have taken proactive steps to safeguard your financial life while you are deployed. This is a critical part of readiness.\n\nRemember, if you flagged any issues in this section, your personalized checklist will give you clear next steps, including helpful resources for contacting your creditors.\n\nNow, let's move on to a few quick administrative items.",
-            "next": "q_fcp_check_admin"
-        },
-
-        "q_fcp_check_admin": {
-            "type": "question",
-            "text": "Do you have a Family Care Plan, and is it complete and certified by your unit?",
-            "yes": "immigration_intro", # Points to the next section
-            "no": "out_admin_fcp"
-        },
-        "out_admin_fcp": {
-            "type": "outcome",
-            "level": "Red",
-            "text": "You should create a Family Care Plan.",
-            "next": "immigration_intro" # Points to the next section
-        },
-
-
+            "admin_intro": {
+                "type": "section_intro",
+                "title": "Section 6: Military Administrative Matters",
+                "text": "Excellent work. By navigating these questions, you have taken proactive steps to safeguard your financial life while you are deployed. This is a critical part of readiness.\n\nRemember, if you flagged any issues in this section, your personalized checklist will give you clear next steps, including helpful resources for contacting your creditors.\n\nNow, let's move on to a few quick administrative items.",
+                "next": "q_fcp_check_admin"
+            },
+            "q_fcp_check_admin": {
+                "type": "question",
+                "text": "Do you have a Family Care Plan, and is it complete and certified by your unit?",
+                "yes": "immigration_intro",
+                "no": "out_admin_fcp"
+            },
+            "out_admin_fcp": {
+                "type": "outcome",
+                "level": "Red",
+                "text": "You should create a Family Care Plan.",
+                "next": "immigration_intro"
+            },
 
             # =================================================================
             # SECTION 7: IMMIGRATION
             # =================================================================
-
-                        "immigration_intro": {
+            "immigration_intro": {
                 "type": "section_intro",
                 "title": "Section 7: Immigration",
                 "text": "One last push!",
@@ -502,21 +475,19 @@ class LegalReadinessQuiz:
                 "type": "question",
                 "text": "Do you have an immediate relative (spouse, child, or parent) who needs an immigration benefit?",
                 "yes": "out_immigration_relative_benefit",
-                "no": "poa_intro" # Points to the next section
+                "no": "poa_intro"
             },
             "out_immigration_relative_benefit": {
                 "type": "outcome",
                 "level": "Red",
                 "text": "You should see an attorney to discuss whether your relative qualifies for any immigration benefits, such as parole in place.",
-                "next": "poa_intro" # Points to the next section
+                "next": "poa_intro"
             },
-
 
             # =================================================================
             # SECTION 8: POWERS OF ATTORNEY
             # =================================================================
-
-                        "poa_intro": {
+            "poa_intro": {
                 "type": "section_intro",
                 "title": "Section 8: Powers of Attorney",
                 "text": "You're in the home stretch! This last section covers important legal tools and protections.",
@@ -540,46 +511,42 @@ class LegalReadinessQuiz:
                 "type": "question",
                 "text": "Do you need someone to pay bills, manage your bank accounts, or handle other financial matters while you are deployed?",
                 "yes": "q_has_poa",
-                "no": "final_question_intro" # Points to the next section
+                "no": "final_question_intro"
             },
             "q_has_poa": {
                 "type": "question",
                 "text": "Do you already have a Power of Attorney?",
-                "yes": "final_question_intro", # Points to the next section
+                "yes": "final_question_intro",
                 "no": "out_poa_get_one"
             },
             "out_poa_get_one": {
                 "type": "outcome",
                 "level": "Red",
                 "text": "You should see an attorney to get a Power of Attorney.",
-                "next": "final_question_intro" # Points to the next section
+                "next": "final_question_intro"
             },
-
 
             # =================================================================
             # SECTION 9: FINAL QUESTION
             # =================================================================
-
-                                "final_question_intro": {
-            "type": "section_intro",
-            "title": "Section 9: Final Question",
-            "text": "You've reached the final step! You have now covered all the major legal readiness topics, from estate planning to consumer law.\n\nThis last question is our safety net, designed to catch any unique concerns that weren't covered in the previous sections. Please take a moment to think if there is anything else on your mind.\n\nYour personalized checklist is just one click away.",
-            "next": "q_other_legal_issues"
-        },
-
+            "final_question_intro": {
+                "type": "section_intro",
+                "title": "Section 9: Final Question",
+                "text": "You've reached the final step! You have now covered all the major legal readiness topics, from estate planning to consumer law.\n\nThis last question is our safety net, designed to catch any unique concerns that weren't covered in the previous sections. Please take a moment to think if there is anything else on your mind.\n\nYour personalized checklist is just one click away.",
+                "next": "q_other_legal_issues"
+            },
             "q_other_legal_issues": {
                 "type": "question",
                 "text": "Do you have any other legal issues that have not been addressed?",
                 "yes": "out_final_see_attorney",
-                "no": "end_of_quiz" # Finished!
+                "no": "end_of_quiz"
             },
             "out_final_see_attorney": {
                 "type": "outcome",
                 "level": "Red",
                 "text": "You should see a legal assistance attorney to discuss your other legal issues.",
-                "next": "end_of_quiz" # Finished!
+                "next": "end_of_quiz"
             },
-
 
             # =================================================================
             # END OF QUIZ
@@ -613,42 +580,28 @@ class LegalReadinessQuiz:
 
         next_node_id = current_node.get(answer.lower())
         if not next_node_id:
-            # This can happen if a question is missing a yes/no path.
             print(f"ERROR: No path for answer '{answer}' from node '{self.current_node_id}'")
-            self.current_node_id = "end_of_quiz" # Fail safe
+            self.current_node_id = "end_of_quiz"
             return
 
         self.current_node_id = next_node_id
         
-        # Automatically process any outcome nodes we land on.
-        # This loop allows us to chain outcomes to the next question.
         new_node = self.get_current_node()
         while new_node and new_node.get('type') == 'outcome':
             if new_node.get('level') in ['Red', 'Yellow']:
-                # Add the issue to the user's personalized checklist.
                 self.checklist.append({
                     "level": new_node['level'],
                     "text": new_node['text']
                 })
             
-            # Move to the next step defined after the outcome.
             if new_node.get('next'):
                 self.current_node_id = new_node['next']
                 new_node = self.get_current_node()
             else:
-                # If an outcome has no 'next', it's a dead end. Stop the loop.
                 break
-
-
-
-
-class LegalReadinessQuiz:
-    # ... lots of code ...
-    def process_answer(self, answer):
-        # ...
-
-    def get_current_section_title(self): # <--- CORRECT! Indented to be part of the class.
-        """Helper function..."""
+    
+    def get_current_section_title(self):
+        """Helper function that simply returns the currently stored section title."""
         return self.current_section_title
 # --- Page Configuration ---
 st.set_page_config(
@@ -656,18 +609,15 @@ st.set_page_config(
     layout="centered"
 )
 
+# --- Main Header ---
+st.title("Warfighter Legal Readiness Check")
+st.divider()
+
 # --- Session State Initialization ---
-# This is the most important part of a Streamlit app.
-# It creates a 'memory' for the app to remember the user's progress.
-# Without this, the quiz would restart every time a button is clicked.
 if 'quiz' not in st.session_state:
-    # If the quiz hasn't been started, create a new instance of our quiz logic
-    # and store it in the session state.
     st.session_state.quiz = LegalReadinessQuiz()
 
 # --- Main App ---
-
-# Get the current quiz object and the current node (question/intro/etc.)
 quiz = st.session_state.quiz
 node = quiz.get_current_node()
 
@@ -680,26 +630,31 @@ if node:
             st.header(node.get('title'))
             quiz.current_section_title = node.get('title')
 
-        # Replace the "\n" characters with markdown for paragraph breaks
         display_text = node['text'].replace('\n', '\n\n')
         st.write(display_text)
 
-        # Check if there's a pop-up and display it in an expander
         if 'popup' in node:
             for term, definition in node['popup'].items():
                 with st.expander(f"What is '{term}'?"):
                     st.write(definition)
         
-        # A "Continue" button for section intros to move the user forward
-        if st.button("Continue", type="primary"):
-            quiz.current_node_id = node['next']
-            st.rerun()
+        if node.get('next') is not None:
+            if st.button("Continue", type="primary"):
+                quiz.current_node_id = node['next']
+                st.rerun()
+        else:
+            # This handles the final "end_of_quiz" node
+            st.success("Click 'View Checklist' to see your results.")
+            if st.button("View Checklist", type="primary"):
+                # A trick to move to a non-existent node to trigger the end-of-quiz display
+                quiz.current_node_id = "show_checklist_sentinel"
+                st.rerun()
+
 
     elif node_type == 'question':
         # --- Display a Question with Yes/No Buttons ---
         st.subheader(node['text'])
 
-        # Check if there's a pop-up for this question
         if 'popup' in node:
             for term, definition in node['popup'].items():
                 with st.expander(f"What is '{term}'?"):
@@ -710,27 +665,18 @@ if node:
         current_section_title = quiz.get_current_section_title()
         if current_section_title:
             st.caption(f"You are in: {current_section_title}")
-
-        # Create two columns for the Yes and No buttons to appear side-by-side
+        
         col1, col2 = st.columns(2)
 
         with col1:
             if st.button("Yes", use_container_width=True):
                 quiz.process_answer('yes')
-                st.rerun() # Rerun the app to show the next question
+                st.rerun()
 
         with col2:
             if st.button("No", use_container_width=True):
                 quiz.process_answer('no')
-                st.rerun() # Rerun the app to show the next question
-
-    elif node_type == 'outcome':
-        # This part should ideally not be reached if the logic is correct,
-        # as process_answer should handle outcomes and move to the next question.
-        # This is a fallback.
-        st.warning("You have reached an outcome node directly. This should not happen.")
-        quiz.current_node_id = node.get('next')
-        st.rerun()
+                st.rerun()
 
 else:
     # --- This is the End of the Quiz ---
@@ -740,7 +686,6 @@ else:
     if quiz.checklist:
         st.write("Based on your answers, here is your personalized legal readiness checklist. Consider taking this to your local legal assistance office.")
 
-        # Sort checklist to show Red items first
         sorted_checklist = sorted(quiz.checklist, key=lambda x: x['level'], reverse=True)
 
         for item in sorted_checklist:
@@ -748,13 +693,11 @@ else:
                 st.error(f"**Action Strongly Advised:** {item['text']}")
             elif item['level'] == 'Yellow':
                 st.warning(f"**Action Recommended:** {item['text']}")
-            # Green items are not added to the checklist in our current logic
     else:
         st.success("Congratulations! Based on your answers, no immediate legal actions are recommended.")
 
     st.info("Disclaimer: This tool provides general information and is not a substitute for legal advice from a licensed attorney.")
 
     if st.button("Start Over"):
-        # Clear the session state to start a new quiz
         del st.session_state.quiz
         st.rerun()
