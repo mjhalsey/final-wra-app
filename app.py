@@ -646,7 +646,7 @@ node = quiz.get_current_node()
 if node:
     node_type = node.get('type')
 
-        elif node_type == 'section_intro':
+    elif node_type == 'section_intro':
         # --- Display a Section Introduction ---
         if node.get('title'):
             # Only show the toast if it's not the very first intro page
@@ -667,15 +667,15 @@ if node:
             if st.button("Continue", type="primary"):
                 quiz.current_node_id = node['next']
                 st.rerun()
-        else:
-            # This handles the final "end_of_quiz" node
+else:
+    # This handles the final "end_of_quiz" node
             st.success("Click 'View Checklist' to see your results.")
             if st.button("View Checklist", type="primary"):
                 quiz.current_node_id = "show_checklist_sentinel"
                 st.rerun()
 
         else:
-            # This handles the final "end_of_quiz" node
+        # This handles the final "end_of_quiz" node
             st.success("Click 'View Checklist' to see your results.")
             if st.button("View Checklist", type="primary"):
                 # A trick to move to a non-existent node to trigger the end-of-quiz display
