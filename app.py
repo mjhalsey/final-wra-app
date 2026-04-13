@@ -646,7 +646,7 @@ node = quiz.get_current_node()
 if node:
     node_type = node.get('type')
 
-    elif node_type == 'section_intro':
+    if node_type == 'section_intro':
         # --- Display a Section Introduction ---
         if node.get('title'):
             # Only show the toast if it's not the very first intro page
