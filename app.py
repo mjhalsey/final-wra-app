@@ -564,6 +564,9 @@ class LegalReadinessQuiz:
         self.current_node_id = "start"
         self.checklist = []
         self.current_section_title = "Introduction"
+        self.total_questions = sum(1 for node in self.nodes.values() if node.get('type') == 'question')
+        self.questions_answered = 0
+
 
     def get_current_node(self):
         """Returns the current question or outcome node from the dictionary."""
@@ -577,6 +580,8 @@ class LegalReadinessQuiz:
         current_node = self.get_current_node()
         if current_node.get('type') != 'question':
             return
+    self.questions_answered += 1
+
 
         next_node_id = current_node.get(answer.lower())
         if not next_node_id:
@@ -603,6 +608,15 @@ class LegalReadinessQuiz:
     def get_current_section_title(self):
         """Helper function that simply returns the currently stored section title."""
         return self.current_section_title
+
+    def get_progress(self):
+        """Calculates the completion percentage."""
+        if self.total_questions == 0:
+            return 0
+        # We use min() to make sure it never goes over 100%
+        progress_percent = int((self.questions_answered / self.total_questions) * 100)
+        return min(100, progress_percent)
+
 # --- Page Configuration ---
 st.set_page_config(
     page_title="Warfighter Legal Readiness",
@@ -612,6 +626,14 @@ st.set_page_config(
 # --- Main Header ---
 st.title("Warfighter Legal Readiness Check")
 st.divider()
+progress_bar_placeholder = st.empty()
+
+# --- Main Header ---
+st.title("Warfighter Legal Readiness Check")
+st.divider()
+
+# --- Progress Bar Placeholder ---
+progress_bar_placeholder = st.empty()
 
 # --- Session State Initialization ---
 if 'quiz' not in st.session_state:
@@ -624,9 +646,12 @@ node = quiz.get_current_node()
 if node:
     node_type = node.get('type')
 
-    if node_type == 'section_intro':
+        elif node_type == 'section_intro':
         # --- Display a Section Introduction ---
         if node.get('title'):
+            # Only show the toast if it's not the very first intro page
+            if quiz.questions_answered > 0:
+                st.toast(f"✅ Section Complete!")
             st.header(node.get('title'))
             quiz.current_section_title = node.get('title')
 
@@ -646,6 +671,13 @@ if node:
             # This handles the final "end_of_quiz" node
             st.success("Click 'View Checklist' to see your results.")
             if st.button("View Checklist", type="primary"):
+                quiz.current_node_id = "show_checklist_sentinel"
+                st.rerun()
+
+        else:
+            # This handles the final "end_of_quiz" node
+            st.success("Click 'View Checklist' to see your results.")
+            if st.button("View Checklist", type="primary"):
                 # A trick to move to a non-existent node to trigger the end-of-quiz display
                 quiz.current_node_id = "show_checklist_sentinel"
                 st.rerun()
@@ -653,6 +685,19 @@ if node:
 
     elif node_type == 'question':
         # --- Display a Question with Yes/No Buttons ---
+        # --- Calculate and Display Progress ---
+        progress_percent = quiz.get_progress()
+        fees_saved = quiz.questions_answered * 25 # $25 per question
+        progress_text = f"Progress: {progress_percent}% | Estimated Legal Fees Saved: ${fees_saved}"
+        
+        with progress_bar_placeholder.container():
+            st.write(progress_text)
+            st.progress(progress_percent)
+
+
+
+
+
         st.subheader(node['text'])
 
         if 'popup' in node:
