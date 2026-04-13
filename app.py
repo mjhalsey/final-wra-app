@@ -639,11 +639,17 @@ class LegalReadinessQuiz:
                 # If an outcome has no 'next', it's a dead end. Stop the loop.
                 break
 
-def get_current_section_title(self):
-    """Helper function that simply returns the currently stored section title."""
-    return self.current_section_title
 
 
+
+class LegalReadinessQuiz:
+    # ... lots of code ...
+    def process_answer(self, answer):
+        # ...
+
+    def get_current_section_title(self): # <--- CORRECT! Indented to be part of the class.
+        """Helper function..."""
+        return self.current_section_title
 # --- Page Configuration ---
 st.set_page_config(
     page_title="Warfighter Legal Readiness",
