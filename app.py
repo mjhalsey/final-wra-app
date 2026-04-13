@@ -580,7 +580,7 @@ class LegalReadinessQuiz:
         current_node = self.get_current_node()
         if current_node.get('type') != 'question':
             return
-    self.questions_answered += 1
+        self.questions_answered += 1
 
 
         next_node_id = current_node.get(answer.lower())
